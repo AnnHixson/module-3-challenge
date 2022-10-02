@@ -127,7 +127,7 @@ function writePassword() {
     function generateCharacters() {
       characterCount = numberOfCharacters;
       // Sets password to a string
-      password = [""] /* reddit based u/itsMillerGaming */
+      password = [""] /* this piece of code was found on reddit in a post by u/itsMillerGaming */
 
       // For each of the selected number of characters...
       for (characterCount; characterCount > 0; characterCount--) {
@@ -136,8 +136,7 @@ function writePassword() {
         // Select a character
         character = Math.floor(Math.random() * optionsOptions[selectArray].length);
         // Add character to password string
-        password += (optionsOptions[selectArray][character]);
-        // "password +=" is reddit based u/MrSloppyPants
+        password += (optionsOptions[selectArray][character]); /* "password +=" is the piece of this line of code that was found on reddit in a comment by u/MrSloppyPants */
       };
     };
     // Call function
@@ -206,7 +205,7 @@ function writePassword() {
     confirmCharacters();
 
     // Returns the completed password
-    return password; /* reddit based u/MrSloppyPants */
+    return password; /* this piece of code was found on reddit in a comment by u/MrSloppyPants */
   };
 
   // End of my code
