@@ -9,6 +9,7 @@ function writePassword() {
 
   // Beginning of my code
 
+  // Randomly generates a password according to the user's selected criteria
   function generatePassword() {
     var numberOfCharacters;
     var lowerCase;
@@ -127,6 +128,7 @@ function writePassword() {
       characterCount = numberOfCharacters;
       // Sets password to a string
       password = [""] /* reddit based u/itsMillerGaming */
+
       // For each of the selected number of characters...
       for (characterCount; characterCount > 0; characterCount--) {
         // Select an array
@@ -141,7 +143,7 @@ function writePassword() {
     // Call function
     generateCharacters();
 
-    // Check that password has all requested character types
+    // Create a tally of all characters in password by type
     function characterTally() {
       lowerCaseCount = 0;
       upperCaseCount = 0;
@@ -150,6 +152,7 @@ function writePassword() {
       var passwordCharacterCount = password.length;
       var passwordCharacter;
       
+      // For each character in password, check what type it is and increase that type's tally count by one
       for (passwordCharacterCount; passwordCharacterCount > 0; passwordCharacterCount--) {
         passwordCharacter = password[passwordCharacterCount-1];
         if (optionsLowerCase.includes(passwordCharacter)) {
@@ -169,22 +172,30 @@ function writePassword() {
     // Call function
     characterTally();
 
+    // Confirms that all requested character types are present in the password
     function confirmCharacters() {
+      // 1. If this type of character has been selected and there are no characters of this type present in the password (according to the tally)
       if (optionsOptions.includes(optionsLowerCase) && lowerCaseCount === 0) {
+        // 2. Generate a new and different password
         generateCharacters();
+        // 3. Tally up the characters in the new password
         characterTally();
+        // 4. Run this function again to check and confirm that all requested character types are present in the new password
         confirmCharacters();
       };
+      // Repeat steps 1-4 for this type of character
       if (optionsOptions.includes(optionsUpperCase) && upperCaseCount === 0) {
         generateCharacters();
         characterTally();
         confirmCharacters();
       };
+      // Repeat steps 1-4 for this type of character
       if (optionsOptions.includes(optionsNumeric) && numericCount === 0) {
         generateCharacters();
         characterTally();
         confirmCharacters();
       };
+      // Repeat steps 1-4 for this type of character
       if (optionsOptions.includes(optionsSpecial) && specialCount === 0) {
         generateCharacters();
         characterTally();
