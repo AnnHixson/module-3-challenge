@@ -6,7 +6,9 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
+
   // Beginning of my code
+
   function generatePassword() {
     var numberOfCharacters;
     var lowerCase;
@@ -21,6 +23,10 @@ function writePassword() {
     var optionsOptions;
     var selectArray;
     var character;
+    var lowerCaseCount;
+    var upperCaseCount;
+    var numericCount;
+    var specialCount;
 
     // Begin Prompts
     window.alert("Please answer the following questions in order to set the parameters for your password.");
@@ -67,11 +73,11 @@ function writePassword() {
     alert("Thank you.\nNow generating your password...");
 
     // Generate the characters of the password
-    function generateCharacters() {
+    function characterTypesIncluded() {
       // Character arrays
       optionsLowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
       optionsUpperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-      optionsNumeric = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      optionsNumeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       optionsSpecial = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"];
       // Array of character arrays
       optionsOptions = [optionsLowerCase, optionsUpperCase, optionsNumeric, optionsSpecial];
@@ -114,30 +120,89 @@ function writePassword() {
       };
     };
     // Call function
+    characterTypesIncluded();
+
+    // Generate the characters of the password
+    function generateCharacters() {
+      characterCount = numberOfCharacters;
+      // Sets password to a string
+      password = [""] /* reddit based u/itsMillerGaming */
+      // For each of the selected number of characters...
+      for (characterCount; characterCount > 0; characterCount--) {
+        // Select an array
+        selectArray = Math.floor(Math.random() * optionsOptions.length);
+        // Select a character
+        character = Math.floor(Math.random() * optionsOptions[selectArray].length);
+        // Add character to password string
+        password += (optionsOptions[selectArray][character]);
+        // "password +=" is reddit based u/MrSloppyPants
+      };
+    };
+    // Call function
     generateCharacters();
 
-    // Sets password to a string
-    password = [""] /* reddit based u/itsMillerGaming */
-    // Determines the characters used in password
-    for (characterCount; characterCount > 0; characterCount--) {
-      // Select an array
-      selectArray = Math.floor(Math.random() * optionsOptions.length);
-      // Select a character
-      character = Math.floor(Math.random() * optionsOptions[selectArray].length);
-      // Adds character to password string
-      password += (optionsOptions[selectArray][character]);
-      // "password +=" is reddit based u/MrSloppyPants
+    // Check that password has all requested character types
+    function characterTally() {
+      lowerCaseCount = 0;
+      upperCaseCount = 0;
+      numericCount = 0;
+      specialCount = 0;
+      var passwordCharacterCount = password.length;
+      var passwordCharacter;
+      
+      for (passwordCharacterCount; passwordCharacterCount > 0; passwordCharacterCount--) {
+        passwordCharacter = password[passwordCharacterCount-1];
+        if (optionsLowerCase.includes(passwordCharacter)) {
+          lowerCaseCount++;
+        };
+        if (optionsUpperCase.includes(passwordCharacter)) {
+          upperCaseCount++;
+        };
+        if (optionsNumeric.includes(passwordCharacter)) {
+          numericCount++;
+        };
+        if (optionsSpecial.includes(passwordCharacter)) {
+          specialCount++;
+        };
+      };
     };
+    // Call function
+    characterTally();
+
+    function confirmCharacters() {
+      if (optionsOptions.includes(optionsLowerCase) && lowerCaseCount === 0) {
+        generateCharacters();
+        characterTally();
+        confirmCharacters();
+      };
+      if (optionsOptions.includes(optionsUpperCase) && upperCaseCount === 0) {
+        generateCharacters();
+        characterTally();
+        confirmCharacters();
+      };
+      if (optionsOptions.includes(optionsNumeric) && numericCount === 0) {
+        generateCharacters();
+        characterTally();
+        confirmCharacters();
+      };
+      if (optionsOptions.includes(optionsSpecial) && specialCount === 0) {
+        generateCharacters();
+        characterTally();
+        confirmCharacters();
+      };
+    };
+    // Call function
+    confirmCharacters();
+
     // Returns the completed password
     return password; /* reddit based u/MrSloppyPants */
   };
+
   // End of my code
+
 
   passwordText.value = password;
 };
-
-
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
